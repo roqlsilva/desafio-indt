@@ -3,6 +3,7 @@ import { SignRoutes } from "./SignRoutes";
 import { OtherRoutes } from "./OtherRoutes";
 import { usePersistentStorageValue } from "../hooks/usePersistentStorageValue";
 import { LoginResponseType } from "../models/auth/login.interface";
+import { AppTemplate } from "../components/AppTemplate";
 
 export const Routes: React.FC = () => {
     const [loggedUser, setLoggedUser] = usePersistentStorageValue<LoginResponseType>("auth");
@@ -17,5 +18,14 @@ export const Routes: React.FC = () => {
         }
     }, [loggedUser]);
 
-    return signed ? <OtherRoutes /> : <SignRoutes />
+    // return signed ? <OtherRoutes /> : <SignRoutes />
+    return <ProtectedRoutes />;
 };
+
+function ProtectedRoutes() {
+    return (
+        <AppTemplate>
+            <OtherRoutes />
+        </AppTemplate>
+    );
+}

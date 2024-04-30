@@ -34,6 +34,15 @@ export class DatabaseUrlRepository implements IUrlRepository {
         return result;
     }
 
+    async delete(id: string): Promise<void> {
+        await this.urlEntityRepository.delete(id);
+    }
+
+    async update(id: string, data: UrlModel): Promise<UrlModel> {
+        await this.urlEntityRepository.update(id, data);
+        return data;
+    }
+
     private toUrlEntity(data: UrlModel): UrlEntity {
         const url = new UrlEntity();
 

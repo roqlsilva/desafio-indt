@@ -13,6 +13,7 @@ import { ColorModeSwitcher } from "./ColorModeSwitcher"
 import { Logo } from "./Logo"
 import LoginPage from "./pages/Login"
 import { Routes } from "./routes"
+import { AppTemplate } from "./components/AppTemplate"
 
 export const App = () => (
   <ChakraProvider theme={theme}>

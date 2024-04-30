@@ -3,7 +3,9 @@ import { UserModel } from "../model/user.model";
 
 export interface IUrlRepository {
     create(data: UrlModel): Promise<UrlModel>;
+    update(id: string, data: UrlModel): Promise<UrlModel>;
     findAll(): Promise<UrlModel[]>;
     findById(id: string): Promise<UrlModel>;
     findUrlByPath(path: string): Promise<UrlModel>;
+    delete(id: string): Promise<void>;
 }

@@ -13,6 +13,8 @@ import { JwtTokenService } from '../services/jwt/jwt.service';
 import { DatabaseUrlRepository } from '../repositories/url/url.repository';
 import { AddUrlUseCases } from 'src/usecases/url/add-url.usecases';
 import { GetUrlUseCases } from 'src/usecases/url/get-url.usecases';
+import { DeleteUrlUseCases } from 'src/usecases/url/delete-url.usecases';
+import { UpdateUrlUseCases } from 'src/usecases/url/update-url.usecases';
 
 @Module({
     imports: [
@@ -28,6 +30,8 @@ export class UseCasesProxyModule {
     //Url
     static POST_URL_USECASES_PROXY = "postUrlUseCasesProxy";
     static GET_URL_USECASES_PROXY = "getUrlUseCasesProxy";
+    static DELETE_URL_USECASES_PROXY = "deleteUrlUseCasesProxy";
+    static PUT_URL_USECASES_PROXY = "putUrlUseCasesProxy";
     
     //User
     static POST_USER_USECASES_PROXY = 'postUserUseCasesProxy';
@@ -76,6 +80,18 @@ export class UseCasesProxyModule {
                     provide: UseCasesProxyModule.GET_URL_USECASES_PROXY,
                     useFactory: (urlRepository: DatabaseUrlRepository) =>
                         new UseCaseProxy(new GetUrlUseCases(urlRepository)),
+                },
+                {
+                    inject: [DatabaseUrlRepository],
+                    provide: UseCasesProxyModule.DELETE_URL_USECASES_PROXY,
+                    useFactory: (urlRepository: DatabaseUrlRepository) =>
+                        new UseCaseProxy(new DeleteUrlUseCases(urlRepository)),
+                },
+                {
+                    inject: [DatabaseUrlRepository],
+                    provide: UseCasesProxyModule.PUT_URL_USECASES_PROXY,
+                    useFactory: (urlRepository: DatabaseUrlRepository) =>
+                        new UseCaseProxy(new UpdateUrlUseCases(urlRepository)),
                 }
             ],
             exports: [
@@ -85,6 +101,8 @@ export class UseCasesProxyModule {
                 UseCasesProxyModule.GET_USER_BY_ID_USECASES_PROXY,
                 UseCasesProxyModule.POST_URL_USECASES_PROXY,
                 UseCasesProxyModule.GET_URL_USECASES_PROXY,
+                UseCasesProxyModule.DELETE_URL_USECASES_PROXY,
+                UseCasesProxyModule.PUT_URL_USECASES_PROXY,
             ]
         }
     }
